@@ -1,0 +1,60 @@
+---
+title: "Literate Analisis"
+format: html
+editor: visual
+---
+
+## Introduction
+
+### About the data
+
+This data set contains North Pole Environmental Observatory Bottle Chemistry data. This data set includes diverse measurements of seawater chemistry along with supporting conductivity, temperature, and depth (CTD) data from the Arctic Ocean near the North Pole (https://arcticdata.io/catalog/view/doi:10.18739/A25T3FZ8X)
+
+### Setup
+
+```{r}
+library(readr)
+```
+
+## Read Data
+
+```{r}
+
+bg_chem <- read_csv("data/BGchem2008data.csv")
+
+```
+
+```{r}
+
+colnames(bg_chem)
+summary(bg_chem)
+unique(bg_chem$Date)
+
+```
+
+## Analysis
+
+### Calculate summary statistics
+
+```{r}
+nitrate <- mean(bg_chem$NO3)
+nitrite <- mean(bg_chem$NO2)
+amm <- mean(bg_chem$NH4)
+phos <- mean(bg_chem$P)
+```
+
+### Calculate mean Redfield ratio
+```{r}
+ratio <- (nitrate + nitrite + amm)/phos
+round(ratio)
+```
+
+### Plot Ratio
+
+```{r}
+
+plot(bg_chem$P, bg_chem$NO2 + bg_chem$NO3 + bg_chem$NH4)
+
+```
+
+## Conclusion
