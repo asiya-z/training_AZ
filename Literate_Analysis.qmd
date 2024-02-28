@@ -44,6 +44,7 @@ phos <- mean(bg_chem$P)
 ```
 
 ### Calculate mean Redfield ratio
+
 ```{r}
 ratio <- (nitrate + nitrite + amm)/phos
 round(ratio)
