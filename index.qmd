@@ -5,9 +5,9 @@ format: html
 editor: visual
 ---
 
-# course lesson
+# Course code
 
--   [Hello w](Literate_Analysis.html)
--   cleaning
+-   [Literature](Literate_Analysis.html)
+-   [salmo](data_viz.html)
 
 ## letter 2
