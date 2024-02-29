@@ -183,7 +183,7 @@ annual_esc %>%
 location <- escape %>% 
   distinct(location, latitude, longitude) %>%
   drop_na()
-View(location)
+#View(location)
 
 datatable(location)
 ```
