@@ -16,6 +16,17 @@ library(ggplot2)
 library(tidyr)
 ```
 
+## Introduction
+
+### About the data
+
+Data on abundance, size and fishing pressure of California spiny
+lobster (Panulirus interruptus) are collected along the mainland
+coast of the Santa Barbara Channel. Spiny lobsters are an
+important predator in giant kelp forests off southern California ([https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8](#0)
+
+## Data reading                        
+
 ```{r}
 lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ```
@@ -29,4 +40,41 @@ not_napl <- lobster_abundance %>%
 
 aque_70mm <- lobster_abundance %>% 
     filter(SITE == "AQUE" & SIZE_MM >= 70)
+```
+
+## Exercise: Data Visualization
+
+```{r}
+ggplot(data = lobster_abundance, aes(x = SIZE_MM)) +
+    geom_histogram() +
+    facet_wrap(~SITE)
+```
+
+```{r}
+lobsters_summarize <- lobster_abundance %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(COUNT = n())
+```
+
+```{r}
+# line plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_line(aes(color = SITE)) 
+
+# line and point plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_point(aes(color = SITE)) +
+  geom_line(aes(color = SITE)) 
+```
+
+## Marine protected areas
+
+```{r}
+lobster_mpa <- lobster_abundance %>% 
+    mutate(DESIGNATION = case_when(
+    SITE %in% c("IVEE", "NAPL") ~ "MPA",
+    SITE %in% c("AQUE", "CARP", "MOHK") ~ "not MPA"
+  ))
+
+head (lobster_mpa)
 ```
