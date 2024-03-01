@@ -27,3 +27,68 @@ species <- tbls[[1]] %>%
 
 head(species, 3)
 ```
+
+```{r}
+nest_data <- read_csv("data/Utqiagvik_nest_data.csv")
+predator_survey <- read_csv("data/Utqiagvik_predator_surveys.csv")
+egg_measures <- read_csv("data/Utqiagvik_egg_measurements.csv")
+
+colnames(predator_survey)
+glimpse(predator_survey)
+unique(predator_survey$species)
+summary(predator_survey)
+spec(predator_survey)
+
+
+```
+
+```{r}
+predator_comm_names <- left_join(predator_survey,
+                                 species,
+                                 by = c("species" = "alpha_code"))
+predator_comm_names
+
+```
+
+```         
+#' Title assign_species_name}
+#'
+#' @param df 
+#' @param species 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+```
+
+```{r}
+assign_species_name <- function(df, species){
+    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
+    return(return_df)
+}
+```
+
+```{r}
+predator_clean <- assign_species_name(predator_survey, species) %>% 
+    select(year, site, date, common_name, count) %>% 
+    filter(!is.na(common_name))
+
+predator_clean
+
+```
+
+```{r}
+nest_clean <- assign_species_name(nest_data, species) %>% 
+    select(year, site, nestID, common_name, lat_corrected, long_corrected) %>% 
+    filter(!is.na(common_name))
+nest_clean
+```
+
+```{r}
+eggs_clean <- assign_species_name(egg_measures, species) %>% 
+    select(year, site, nestID, common_name, length, width) %>% 
+    filter(!is.na(common_name))
+
+eggs_clean
+```
