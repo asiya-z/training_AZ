@@ -8,6 +8,6 @@ editor: visual
 # Course code
 
 -   [Literature](Literate_Analysis.html)
--   [salmo](data_viz.html)
+-   [Lobsters](Lobster_analisis.html)
 
 ## letter 2
