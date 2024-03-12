@@ -1,0 +1,57 @@
+---
+title: "shp_proc"
+format: html
+editor: visual
+---
+
+```{r}
+library(readr)
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggspatial)
+library(dplyr)
+library(tidyverse)
+library(stringi)
+```
+
+```{r}
+reg <- read_sf("data/32p.shp")
+nrow(reg)
+head(reg)
+```
+```{r} 
+
+
+spec <- c("EN", "EB", "PG", "SB", "ML", "BP", "BJ","PT")
+ttt <- str_extract("MLEN", spec[1])
+ttt
+
+
+#reg %>%
+#  select(SUPERFICIE) %>%
+ # mutate(
+ #   s22 = SUPERFICIE*2 ) 
+```
+```{r}
+species_name <- function(df, species){
+    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
+    return(return_df)
+}
+```
+
+
+```{r}
+reg2 <- filter(reg, TYPE_TER =='TRF')
+nrow(reg)
+nrow(reg2)
+
+```
+```{r}
+reg3 <- reg3 %>% ?(GR_ESS = ifelse(is.na (GR_ESS), 0, GR_ESS))
+head(reg3)
+
+```
+
+
