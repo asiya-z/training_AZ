@@ -23,22 +23,9 @@ head(reg)
 ```
 
 ```{r}
-
-
-```
-
-```{r}
-species_name <- function(df, species){
-    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
-    return(return_df)
-}
-```
-
-```{r}
 reg2 <- filter(reg, TYPE_TER =='TRF')
 nrow(reg)
 nrow(reg2)
-
 
 ```
 
@@ -49,32 +36,30 @@ head(reg3)
 ```
 
 ```{r}
-sp_data <- reg3 %>% select(GR_ESS)
-head(sp_data)
-```
 
-```{r}
-#ttt <- str_extract(sp_data, "EN")
-#head(ttt)
-
-#ttt  %>% filter(spec %in% sp_data)
-
- # mutate(
- #   s22 = SUPERFICIE*2 ) 
 ```
 
 ```{r}
 
+```
+
+```{r}
 vec <- c(2,2,2,2, 2,2,2,2)
-
 names(vec) <- c("EN", "EB", "PG", "SB", "ML", "BP", "BJ","PT")
-
-#sp_data <- reg3 %>% select(GR_ESS)
-
-ttt <- tibble (sp_data)|> separate_wider_position(GR_ESS, widths = vec, too_few = 'align_start')
-
+ttt <- tibble (reg3)|> separate_wider_position(GR_ESS, widths = vec, too_few = 'align_start')
 ttt
 
+```
+
+```{r}
+
+ttt %>% 
+  select(CL_AGE) %>%
+  mutate(CL_AGE2 = CL_AGE)   
 
 
 ```
+```{r}
+write_sf(ttt, "data/32p_sp.shp")
+```
+
