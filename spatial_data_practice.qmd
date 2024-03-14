@@ -280,4 +280,4 @@ m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
     )
 
 m
-```
+
