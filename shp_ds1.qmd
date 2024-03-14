@@ -1,0 +1,50 @@
+---
+title: "shp_ds_2"
+format: html
+editor: visual
+---
+
+```{r}
+library(readr)
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggspatial)
+library(tidyverse)
+library(stringi)
+```
+
+```{r}
+reg <- read_sf("data/32p.shp")
+nrow(reg)
+head(reg)
+```
+
+```{r}
+reg2 <- filter(reg, TYPE_TER =='TRF')
+nrow(reg)
+nrow(reg2)
+
+```
+
+```{r}
+reg3 <- reg2 %>% ?(GR_ESS = ifelse(is.na(GR_ESS), 0, GR_ESS))
+head(reg3)
+```
+
+```{r}
+vec <- c(2,2,2,2)
+names(vec) <- c("Sp1", "Sp2", "Sp3", "Sp4")
+ttt <- tibble (reg3)|> separate_wider_position(GR_ESS, widths = vec, too_few = 'align_start')
+ttt
+```
+
+```{r}
+
+write_sf(reg3, "data/32p_sp1.shp")
+```
+
+```
+
+

@@ -1,0 +1,42 @@
+---
+title: "shp_proc"
+format: html
+editor: visual
+---
+
+```{r}
+library(readr)
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggspatial)
+library(dplyr)
+```
+
+```{r}
+reg <- read_sf("data/32p_sp1.shp")
+nrow(reg)
+head(reg)
+```
+```{r}
+
+reg2 <- reg %>%
+ mutate (CL_AGE1 = CL_AGE, .after= CL_AGE)
+reg2 <- reg2 %>%
+ mutate (CL_AGE2 = CL_AGE, .after= CL_AGE1)
+reg2 <- reg2 %>%
+ mutate (cohort1 = Sp1, .after= CL_AGE2)
+reg2 <- reg2 %>%
+ mutate (cohort2 = Sp2, .after= cohort1)
+
+```
+
+```{r}
+head(reg2)
+ncol(reg2)
+```
+
+```{r}
+write_sf(reg, "data/32p_sp2.shp")
+```
