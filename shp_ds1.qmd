@@ -1,5 +1,5 @@
 ---
-title: "shp_ds_2"
+title: "shp_ds_1"
 format: html
 editor: visual
 ---
@@ -12,7 +12,6 @@ library(leaflet)
 library(scales)
 library(ggspatial)
 library(tidyverse)
-library(stringi)
 ```
 
 ```{r}
@@ -27,24 +26,31 @@ nrow(reg)
 nrow(reg2)
 
 ```
-
 ```{r}
-reg3 <- reg2 %>% ?(GR_ESS = ifelse(is.na(GR_ESS), 0, GR_ESS))
-head(reg3)
+reg2 <- reg2 %>%
+ mutate (GR_ESS1 = GR_ESS, .after= GR_ESS)
 ```
 
 ```{r}
-vec <- c(2,2,2,2)
-names(vec) <- c("Sp1", "Sp2", "Sp3", "Sp4")
-ttt <- tibble (reg3)|> separate_wider_position(GR_ESS, widths = vec, too_few = 'align_start')
+head(reg2)
+```
+
+```{r}
+#reg2 <- reg2 %>% ?(GR_ESS1 = ifelse(is.na(GR_ESS1), 0, GR_ESS1))
+#df$Ozone[is.na(df$Ozone)]<-0
+```
+
+```{r}
+vec <- c(2,2,2)
+names(vec) <- c("Sp1", "Sp2", "Sp3")
+ttt <- tibble (reg2)|> separate_wider_position(GR_ESS1, widths = vec, too_few = 'align_start')
 ttt
 ```
 
 ```{r}
 
-write_sf(reg3, "data/32p_sp1.shp")
+write_sf(ttt, "data/111.shp")
 ```
 
-```
 
 
