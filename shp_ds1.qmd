@@ -4,14 +4,9 @@ format: html
 editor: visual
 ---
 
-
 ```{r}
 library(readr)
 library(sf)
-library(ggplot2)
-library(leaflet)
-library(scales)
-library(ggspatial)
 library(tidyverse)
 ```
 
@@ -22,11 +17,13 @@ head(reg)
 ```
 
 ```{r}
-reg2 <- filter(reg, TYPE_TER =='TRF')
+#reg2 <- filter(reg, TYPE_TER =='TRF' )
+reg2 <-  filter(reg,(TYPE_TER == "TRF"|(TYPE_TER == "ILE"&!is.na(TYPE_ECO))))
 nrow(reg)
 nrow(reg2)
 
 ```
+
 ```{r}
 reg2 <- reg2 %>%
  mutate (GR_ESS1 = GR_ESS, .after= GR_ESS)
@@ -52,6 +49,3 @@ ttt
 
 write_sf(ttt, "data/111.shp")
 ```
-
-
-
